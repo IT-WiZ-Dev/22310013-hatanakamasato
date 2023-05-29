@@ -1,0 +1,12 @@
+C:\Users\hatam\source\repos\sozaihantei\sozaihantei\bin\Debug\sozaihantei.exe.config
+C:\Users\hatam\source\repos\sozaihantei\sozaihantei\bin\Debug\sozaihantei.exe
+C:\Users\hatam\source\repos\sozaihantei\sozaihantei\bin\Debug\sozaihantei.pdb
+C:\Users\hatam\source\repos\sozaihantei\sozaihantei\obj\Debug\sozaihantei.csproj.AssemblyReference.cache
+C:\Users\hatam\source\repos\sozaihantei\sozaihantei\obj\Debug\sozaihantei.start.resources
+C:\Users\hatam\source\repos\sozaihantei\sozaihantei\obj\Debug\sozaihantei.Properties.Resources.resources
+C:\Users\hatam\source\repos\sozaihantei\sozaihantei\obj\Debug\sozaihantei.csproj.GenerateResource.cache
+C:\Users\hatam\source\repos\sozaihantei\sozaihantei\obj\Debug\sozaihantei.csproj.CoreCompileInputs.cache
+C:\Users\hatam\source\repos\sozaihantei\sozaihantei\obj\Debug\sozaihantei.exe
+C:\Users\hatam\source\repos\sozaihantei\sozaihantei\obj\Debug\sozaihantei.pdb
+C:\Users\hatam\source\repos\sozaihantei\sozaihantei\obj\Debug\sozaihantei.FormSindan.resources
+C:\Users\hatam\source\repos\sozaihantei\sozaihantei\obj\Debug\sozaihantei.FormAns.resources
