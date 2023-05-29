@@ -1,0 +1,10 @@
+C:\Users\hatam\source\repos\Shougi\Shougi\bin\Release\Shougi.exe.config
+C:\Users\hatam\source\repos\Shougi\Shougi\bin\Release\Shougi.exe
+C:\Users\hatam\source\repos\Shougi\Shougi\bin\Release\Shougi.pdb
+C:\Users\hatam\source\repos\Shougi\Shougi\obj\Release\Shougi.Form1.resources
+C:\Users\hatam\source\repos\Shougi\Shougi\obj\Release\Shougi.Kensaku.resources
+C:\Users\hatam\source\repos\Shougi\Shougi\obj\Release\Shougi.Properties.Resources.resources
+C:\Users\hatam\source\repos\Shougi\Shougi\obj\Release\Shougi.csproj.GenerateResource.cache
+C:\Users\hatam\source\repos\Shougi\Shougi\obj\Release\Shougi.csproj.CoreCompileInputs.cache
+C:\Users\hatam\source\repos\Shougi\Shougi\obj\Release\Shougi.exe
+C:\Users\hatam\source\repos\Shougi\Shougi\obj\Release\Shougi.pdb

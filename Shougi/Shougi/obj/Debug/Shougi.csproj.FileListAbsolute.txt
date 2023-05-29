@@ -1,0 +1,14 @@
+C:\Users\hatam\source\repos\Shougi\Shougi\bin\Debug\Shougi.exe.config
+C:\Users\hatam\source\repos\Shougi\Shougi\bin\Debug\Shougi.exe
+C:\Users\hatam\source\repos\Shougi\Shougi\bin\Debug\Shougi.pdb
+C:\Users\hatam\source\repos\Shougi\Shougi\obj\Debug\Shougi.csproj.AssemblyReference.cache
+C:\Users\hatam\source\repos\Shougi\Shougi\obj\Debug\Shougi.Form1.resources
+C:\Users\hatam\source\repos\Shougi\Shougi\obj\Debug\Shougi.Properties.Resources.resources
+C:\Users\hatam\source\repos\Shougi\Shougi\obj\Debug\Shougi.csproj.GenerateResource.cache
+C:\Users\hatam\source\repos\Shougi\Shougi\obj\Debug\Shougi.csproj.CoreCompileInputs.cache
+C:\Users\hatam\source\repos\Shougi\Shougi\obj\Debug\Shougi.exe
+C:\Users\hatam\source\repos\Shougi\Shougi\obj\Debug\Shougi.pdb
+C:\Users\hatam\source\repos\Shougi\Shougi\obj\Debug\Shougi.Kensaku.resources
+C:\Users\hatam\source\repos\Shougi\Shougi\obj\Debug\Shougi.Hitkihu.resources
+C:\Users\hatam\source\repos\Shougi\Shougi\obj\Debug\Shougi.Saisei.resources
+C:\Users\hatam\source\repos\Shougi\Shougi\obj\Debug\Shougi.Touroku.resources
