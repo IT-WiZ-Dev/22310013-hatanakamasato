@@ -171,10 +171,12 @@ namespace Shougi
                 if (tesuu % 2 == 0)
                 {
                     field[nowY, nowX].getNowPic().Location = new Point(589 + 41 * (valueList.Count + 1), 400);
+                    //field[nowY, nowX].getNowPic().Location = new Point(9 + 41 * (valueList.Count + 1), 400);
                 }
                 else
                 {
-                    field[nowY, nowX].getNowPic().Location = new Point(191 - 41 * valueList.Count, 41);
+                    field[nowY, nowX].getNowPic().Location = new Point(150 - 41 * valueList.Count - 1, 41);
+                    //field[nowY, nowX].getNowPic().Location = new Point(191 - 41 * valueList.Count, 41);
                 }
                 valueList.Add(field[nowY, nowX]);
                 return;

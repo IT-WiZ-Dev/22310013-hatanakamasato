@@ -119,5 +119,10 @@ namespace Shougi
             }
 
         }
+
+        private void pictureBoxTatami_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

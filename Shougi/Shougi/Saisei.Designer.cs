@@ -45,6 +45,7 @@ namespace Shougi
             this.pictureBoxTatami.Size = new System.Drawing.Size(2000, 1000);
             this.pictureBoxTatami.TabIndex = 0;
             this.pictureBoxTatami.TabStop = false;
+            this.pictureBoxTatami.Click += new System.EventHandler(this.pictureBoxTatami_Click);
             // 
             // pictureBoxShougiban
             // 

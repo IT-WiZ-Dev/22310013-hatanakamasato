@@ -53,12 +53,6 @@ namespace Shougi
 
 
 
-            //データーベースに登録
-
-
-
-            //management.testkihu = textBoxKihu.Text;
-            //management.setKihu();
             this.Close();
             
         }
