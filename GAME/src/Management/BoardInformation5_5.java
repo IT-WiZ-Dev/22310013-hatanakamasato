@@ -76,14 +76,61 @@ public class BoardInformation5_5 {
 		    createMovableSquare(list, mouseAdapter);
 		}
 	}
+	public void komaMove(int gotoY, int gotoX) {	
+		boolean winFlg = false;
+		//移動できるマスのボタンを消す
+		for(JButton movableSquare : movableSquareArr) {
+			movableSquare.setVisible(false);  
+		}
+		
+		//成れるかどうか
+		if(isDoQuestion(field[clickedY][clickedX], gotoY)) {
+			KomaPromoted kp = (KomaPromoted)field[clickedY][clickedX];
+			//歩の場合成る
+			if(kp.getId() == 8) {
+				kp.promotedKoma();
+			}else {
+				//はい0　いいえ1
+	      	    int result = showYesNoDialog("成りますか?");
+	      	    if(result == 0) {
+	      	    	kp.promotedKoma();
+	      	    }
+			}
+		}
+		//もし移動先に駒があれば
+		if(field[gotoY][gotoX] != null) {
+			//取った駒が王
+			if(field[gotoY][gotoX].getId() == 1) {
+				winFlg = true;
+			}else {
+				field[gotoY][gotoX].getButton().setVisible(false);
+			    holdinfor.hold(field[gotoY][gotoX].getId(), nowFirstSecond);
+			}
+		}
+		
+		field[gotoY][gotoX] = field[clickedY][clickedX];
+ 		field[clickedY][clickedX] = null;
+ 		field[gotoY][gotoX].setPoint(gotoY, gotoX);
+ 		clickedKomaB.setActionCommand( String.valueOf(gotoY) + String.valueOf(gotoX));
+        Point newPosition = new Point(getPointX(field[gotoY][gotoX].getX()),
+        		                      getPointY(field[gotoY][gotoX].getY()));
+        clickedKomaB.setLocation(newPosition);
+        nowFirstSecond = !nowFirstSecond;
+        if(winFlg) {
+        	int num = showEndDialog("あなたの勝利です");
+        	if(num == 0) {
+        		playview.dispose();
+        	}
+        }
+    }
+	
+	
 	public void checkClickedHoldKoma(boolean _firstSecond, int holdLen) {
 		//クリックした持ち駒は手番か
 		if(nowFirstSecond == _firstSecond) {
-			List<Integer> list  = holdinfor.getHoldListPoint(field, nowFirstSecond, holdLen);
 			clickedHoldLen = holdLen;
-			//clickedKomaB = //new Kin(0,0,cont.OnBtnGoto(),true).getButton();
-			MouseAdapter mouseAdapter = cont.OnBtnHoldMove();
-			
+			List<Integer> list  = holdinfor.getHoldListPoint(field, nowFirstSecond, holdLen);
+			MouseAdapter mouseAdapter = cont.OnBtnHoldMove();			
 			createMovableSquare(list, mouseAdapter);
 		}
 	}
@@ -92,6 +139,7 @@ public class BoardInformation5_5 {
 		for(JButton movableSquare : movableSquareArr) {
 			movableSquare.setVisible(false);  
 		}
+		//持ち駒から指した駒をインスタンス化
 		Koma koma = setInstancing(clickedHoldLen, gotoY, gotoX);
 		field[gotoY][gotoX] = koma;
 		JButton holdMoveBtn = koma.getButton();
@@ -99,13 +147,12 @@ public class BoardInformation5_5 {
         Point newPosition = new Point(getPointX(field[gotoY][gotoX].getX()),
         		                      getPointY(field[gotoY][gotoX].getY()));
         holdMoveBtn.setLocation(newPosition);
-        
+        //持ち駒の数を減らす
+        holdinfor.holdCntReduced(nowFirstSecond, clickedHoldLen);
+        //持ち駒から指した駒を表示
+        playview.showButton(holdMoveBtn);        
         nowFirstSecond = !nowFirstSecond;
-        playview.showButton(holdMoveBtn);
 	}
-	
-	
-	
 	
 	public void createMovableSquare(List<Integer> listPoint, MouseAdapter mouseAdapter){
 	    movableSquareArr = new JButton[listPoint.size() / 2];
@@ -127,43 +174,9 @@ public class BoardInformation5_5 {
 	}
 	
 	
-	public void komaMove(int gotoY, int gotoX) {	
-		//移動できるマスのボタンを消す
-		for(JButton movableSquare : movableSquareArr) {
-			movableSquare.setVisible(false);  
-		}
-		//成れるかどうか
-		if(isDoQuestion(field[clickedY][clickedX], gotoY)) {
-			KomaPromoted kp = (KomaPromoted)field[clickedY][clickedX];
-			//歩の場合成る
-			if(kp.getId() == 8) {
-				kp.promotedKoma();
-			}else {
-				//はい0　いいえ1
-	      	    int result = showYesNoDialog("成りますか?");
-	      	    if(result == 0) {
-	      	    	kp.promotedKoma();
-	      	    }
-			}
-		}
-		//もし移動先に駒があれば
-		if(field[gotoY][gotoX] != null) {
-			field[gotoY][gotoX].getButton().setVisible(false);
-			holdinfor.hold(field[gotoY][gotoX].getId(), nowFirstSecond);
-		}
-		
-		field[gotoY][gotoX] = field[clickedY][clickedX];
- 		field[clickedY][clickedX] = null;
- 		field[gotoY][gotoX].setPoint(gotoY, gotoX);
- 		clickedKomaB.setActionCommand( String.valueOf(gotoY) + String.valueOf(gotoX));
-        Point newPosition = new Point(getPointX(field[gotoY][gotoX].getX()),
-        		                      getPointY(field[gotoY][gotoX].getY()));
-        clickedKomaB.setLocation(newPosition);
-        
-        nowFirstSecond = !nowFirstSecond;
-	}
+
 	
-	boolean isDoQuestion(Koma k, int gotoY) {
+	private boolean isDoQuestion(Koma k, int gotoY) {
 		//王の場合成れない
 		if(k.getId() == 1) {return false;}
 		
@@ -192,7 +205,7 @@ public class BoardInformation5_5 {
 		}
 		return true;
 	}
-	Koma setInstancing(int holdLen, int gotoY, int gotoX){
+	private Koma setInstancing(int holdLen, int gotoY, int gotoX){
 		switch(holdLen){
 		case 0:
 			return new Hisya(gotoY, gotoX, cont.OnBtnGoto(), nowFirstSecond);
@@ -209,14 +222,14 @@ public class BoardInformation5_5 {
 		return null;
 	}
 	
-	public int getPointY(int y) {
+	private int getPointY(int y) {
 		return 86 * y + 70;
 	}
-	public int getPointX(int x) {
+	private int getPointX(int x) {
 		return 70 * x + 210;
 	}
 	
-	public static int showYesNoDialog(String message) {
+	private int showYesNoDialog(String message) {
 		return JOptionPane.showOptionDialog(
 				null,
 				message,
@@ -225,6 +238,17 @@ public class BoardInformation5_5 {
 				JOptionPane.QUESTION_MESSAGE,
 				null,
 				new Object[]{"はい", "いいえ"},
+				"Yes");
+	}
+	private int showEndDialog(String endmessage) {
+		return JOptionPane.showOptionDialog(
+				null,
+				endmessage,
+				"Confirmation",
+				JOptionPane.YES_NO_OPTION,
+				JOptionPane.QUESTION_MESSAGE,
+				null,
+				new Object[]{"終わる", "終了図に戻る"},
 				"Yes");
 	}
 	

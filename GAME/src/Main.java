@@ -4,7 +4,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import View.PlayView5_5;
+import View.StartView;
 
 public class Main extends JFrame {
 
@@ -17,7 +17,7 @@ public class Main extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					PlayView5_5 frame = new PlayView5_5();
+					StartView frame = new StartView();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();

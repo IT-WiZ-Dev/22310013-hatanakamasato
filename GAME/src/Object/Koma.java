@@ -1,6 +1,5 @@
 package Object;
 
-import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.util.ArrayList;
 import java.util.List;
@@ -87,10 +86,9 @@ abstract public class Koma {
 			int gotoY = nowMove[i] + y;
 			int gotoX = nowMove[i + 1] + x;
 			//盤の範囲内か
-			if(gotoY >= 0 && gotoY <= 4 && gotoX >= 0&& gotoX <= 4) {
+			if(gotoY >= 0 && gotoY <= 4 && gotoX >= 0 && gotoX <= 4) {
 				//移動先に駒がないか
 				if(isGotoExist(field, gotoY ,gotoX)) {
-					//System.out.println(gotoY + " " + gotoX);
 					list.add(gotoY);
 					list.add(gotoX);
 				}
@@ -99,7 +97,7 @@ abstract public class Koma {
 		return list;
 	}
 	
-	public boolean isGotoExist(Koma[][] field, int gotoY, int gotoX) {
+	private boolean isGotoExist(Koma[][] field, int gotoY, int gotoX) {
 		
 		if(field[gotoY][gotoX] == null) {
 			return true;
@@ -110,46 +108,12 @@ abstract public class Koma {
 		return false;
 	}
 	
-	public void setHold(int holdCnt) {
-		firstSecond = !firstSecond;
-		setPoint(9, 9);
-		b.setActionCommand( String.valueOf(9) + String.valueOf(9));
-        Point newPosition = new Point(getHoldPointX(holdCnt),
-        		                      getHoldPointY(holdCnt));
-        setNowParameter();
-		ImageIcon imageIcon = new ImageIcon(nowFileName);
-		b.setIcon(imageIcon);
-        b.setLocation(newPosition);
-        
-	}
-	
-	int getPointY(int y) {
+	private int getPointY(int y) {
 		return 86 * y + 70;
 	}
-	int getPointX(int x) {
+	private int getPointX(int x) {
 		return 70 * x + 210;
 	}
-	
-	int getHoldPointY(int holdCnt) {
-		if(firstSecond) {
-			int pointCntY = holdCnt / 2;
-		    return 86 * pointCntY + 328;
-		}else {
-			int pointCntY = holdCnt / 2;
-		    return 86 * pointCntY + 70;
-		}
-		
-	}
-	int getHoldPointX(int holdCnt) {
-		if(firstSecond) {
-			return 70 * (holdCnt % 2) + 600;
-		}else {
-			return 70 * (holdCnt % 2);
-		}
-		
-	}
-	
-	
 	
 	
 	

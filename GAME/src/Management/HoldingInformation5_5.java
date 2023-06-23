@@ -90,7 +90,21 @@ public class HoldingInformation5_5 {
 		}
 		return listPoint;
 	}
-	boolean isMove(Koma koma, int holdLen, boolean firstSecond, int i) {
+	
+	public void holdCntReduced(boolean nowFirstSecond, int clickedHoldLen) {
+		if(nowFirstSecond) {
+			holdKomaFirstCnt[clickedHoldLen]--;
+			String stgLen = String.valueOf(holdKomaFirstCnt[clickedHoldLen]);
+			holdKomaLabel[clickedHoldLen].setText(stgLen);
+		}else {
+			holdKomaSecondCnt[clickedHoldLen]--;
+			String stgLen = String.valueOf(holdKomaSecondCnt[clickedHoldLen]);
+			holdKomaLabel[clickedHoldLen + 5].setText(stgLen);
+		}
+		
+	}
+	
+	private boolean isMove(Koma koma, int holdLen, boolean firstSecond, int i) {
 		if(koma != null) {
 			return false;
 		}
@@ -114,7 +128,7 @@ public class HoldingInformation5_5 {
 	}
 
 	
-	int IDtoLength(int id) {
+	private int IDtoLength(int id) {
 		switch(id) {
 		case 2:
 			return 0;
@@ -132,7 +146,7 @@ public class HoldingInformation5_5 {
 		return -9999999;
 	}
 
-	int getHoldPointY(int holdCnt, boolean firstSecond) {
+	private int getHoldPointY(int holdCnt, boolean firstSecond) {
 		if(firstSecond) {
 			int pointCntY = holdCnt / 2;
 		    return 86 * pointCntY + 280;
@@ -142,7 +156,7 @@ public class HoldingInformation5_5 {
 		}
 		
 	}
-	int getHoldPointX(int holdCnt, boolean firstSecond) {
+	private int getHoldPointX(int holdCnt, boolean firstSecond) {
 		if(firstSecond) {
 			return 70 * (holdCnt % 2) + 650;
 		}else {
@@ -150,6 +164,7 @@ public class HoldingInformation5_5 {
 		}
 		
 	}
+
 
 }
 

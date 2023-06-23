@@ -57,11 +57,7 @@ public class PlayView5_5Cont {
 				int[] firstKomaCnt = boardInfor.getholdInforFirstKomaCnt();
 				if(firstKomaCnt[holdLen] > 0) {
 					boardInfor.checkClickedHoldKoma(true, holdLen);
-					
 				}
-
-				//playview.komaMove(gotoY, gotoX);
-
 			}
 		};
 		return e;
@@ -79,7 +75,6 @@ public class PlayView5_5Cont {
 				int[] SecondKomaCnt = boardInfor.getholdInforSecondKomaCnt();
 				if(SecondKomaCnt[holdLen] > 0) {
 					boardInfor.checkClickedHoldKoma(false, holdLen);
-					System.out.println("ff");
 				}
 			}
 		};
@@ -97,8 +92,6 @@ public class PlayView5_5Cont {
 				int gotoY = Integer.parseInt(zahyou.substring(0,1));
 				int gotoX = Integer.parseInt(zahyou.substring(1,2));
 				boardInfor.holdKomaMove(gotoY, gotoX);
-				//playview.komaMove(gotoY, gotoX);
-
 			}
 		};
 		return e;
