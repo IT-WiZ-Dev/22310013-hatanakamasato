@@ -1,8 +1,6 @@
 package View;
 
 
-import java.awt.EventQueue;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -13,23 +11,10 @@ import javax.swing.border.EmptyBorder;
 import Management.BoardInformation5_5;
 import Object.Koma;
 
-public class PlayView5_5 extends JFrame {
+public class PlayView5_5 extends BasePlayView {
 
 	private JPanel contentPane;
 	private BoardInformation5_5 boardinfor = new BoardInformation5_5(this);
-	
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					PlayView5_5 pv5_5 = new PlayView5_5();
-					pv5_5.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});		
-	}
 	
 	public void showMovableSquare(JButton[] movableSquareArr ) {
 		for(JButton movableSquare : movableSquareArr) {
@@ -41,13 +26,12 @@ public class PlayView5_5 extends JFrame {
 		contentPane.add(komaButton, 0);  
 		setContentPane(contentPane);
 	}
-	/**
-	 * Create the frame.
-	 */
+
+	
 	public PlayView5_5() {
 	    
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 0, 820, 640);
+		setBounds(200, 0, 820, 640);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 

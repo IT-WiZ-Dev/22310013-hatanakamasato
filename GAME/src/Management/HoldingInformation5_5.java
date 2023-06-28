@@ -1,33 +1,21 @@
 package Management;
 
 import java.awt.event.MouseAdapter;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
-import Controller.PlayView5_5Cont;
-import Object.FileNameCollection;
-import Object.Koma;
+import Controller.PlayViewCont;
+import Datacollection.FileNameCollection5_5;
 
-public class HoldingInformation5_5 {
-	private FileNameCollection fileNameColl = new FileNameCollection();
-	private PlayView5_5Cont cont;
-	private JButton[] holdKomaButton = new JButton[10];
-	private JLabel[] holdKomaLabel = new JLabel[10];
-	private int[] holdKomaFirstCnt = new int[5];
-	private int[] holdKomaSecondCnt = new int[5];
-	private  final int SECOND_LABEL_LEN = -20;
-	
-	public JButton[] getHoldKomaBtn() {return holdKomaButton;}
-	public JLabel[] getHoldKomaLbl() {return holdKomaLabel;}
-	public int[] getHoldKomaFirstCnt() {return holdKomaFirstCnt;}
-	public int[] getHoldKomaSecondCnt() {return holdKomaSecondCnt;}
-	
-	public HoldingInformation5_5(PlayView5_5Cont _cont) {
+public class HoldingInformation5_5 extends BaseHoldingInformation{
+
+	public HoldingInformation5_5(PlayViewCont _cont, int typeCnt, int masuCntY) {
+		super(typeCnt, masuCntY);
 		cont = _cont;
+		second_label_len = -20;
+		fileNameColl = new FileNameCollection5_5();
 		String[] holdFileNameArr = {
 				fileNameColl.getHisya(), fileNameColl.getKaku(),
 				fileNameColl.getKin(),fileNameColl.getGin(),
@@ -40,7 +28,7 @@ public class HoldingInformation5_5 {
 		int len = 0;
 		boolean First0_4Second5_10 = true;
 		MouseAdapter mouseAdapter = cont.OnBtnHoldFirst();
-		for(int i = 0; i < 10; i++) {
+		for(int i = 0; i < typeCnt * 2; i++) {
 			JButton holdBtn = new JButton();
 			JLabel holdLbl = new JLabel();
 			int x = getHoldPointX(len, First0_4Second5_10);
@@ -48,87 +36,26 @@ public class HoldingInformation5_5 {
 			holdBtn.setBounds(x, y, 100,100);
 			holdLbl.setBounds(x + labelPointX, y + labelPointY, 50, 50);
 			holdLbl.setText("0");
+
 			ImageIcon imageIcon = new ImageIcon(holdFileNameArr[i]);
 			holdBtn.setIcon(imageIcon);
 			holdBtn.setContentAreaFilled(false);
 			holdBtn.setBorderPainted(false);
 			holdBtn.addMouseListener(mouseAdapter);
-    		holdBtn.setActionCommand(String.valueOf(len));
+    		holdBtn.setActionCommand(String.valueOf(LengthtoID(len)));
 			holdKomaButton[i] = holdBtn;
 			holdKomaLabel[i] = holdLbl;
 			len++;
-			if(len == 5) {
+			if(len == typeCnt) {
 				len = 0;
 				First0_4Second5_10 = !First0_4Second5_10;
 				mouseAdapter = cont.OnBtnHoldSecond();
-				labelPointY = SECOND_LABEL_LEN;
+				labelPointY = second_label_len;
 			}
 		}
 	}
-	public void hold(int id, boolean nowFirstSecond) {
-		int len = IDtoLength(id);
-		if(nowFirstSecond) {
-			holdKomaFirstCnt[len]++;
-			String stgLen = String.valueOf(holdKomaFirstCnt[len]);
-			holdKomaLabel[len].setText(stgLen);
-		}else {
-			holdKomaSecondCnt[len]++;
-			String stgLen = String.valueOf(holdKomaSecondCnt[len]);
-			holdKomaLabel[len + 5].setText(stgLen);
-		}
-	}
 	
-	public List<Integer> getHoldListPoint(Koma[][] field, boolean firstSecond, int holdLen){
-		List<Integer> listPoint = new ArrayList<Integer>();
-		for(int i = 0; i < field.length; i++) {
-			for(int j = 0; j < field[i].length; j++) {
-				if(isMove(field[i][j], holdLen, firstSecond, i)) {
-					listPoint.add(i);
-					listPoint.add(j);
-				}
-			}
-		}
-		return listPoint;
-	}
-	
-	public void holdCntReduced(boolean nowFirstSecond, int clickedHoldLen) {
-		if(nowFirstSecond) {
-			holdKomaFirstCnt[clickedHoldLen]--;
-			String stgLen = String.valueOf(holdKomaFirstCnt[clickedHoldLen]);
-			holdKomaLabel[clickedHoldLen].setText(stgLen);
-		}else {
-			holdKomaSecondCnt[clickedHoldLen]--;
-			String stgLen = String.valueOf(holdKomaSecondCnt[clickedHoldLen]);
-			holdKomaLabel[clickedHoldLen + 5].setText(stgLen);
-		}
-		
-	}
-	
-	private boolean isMove(Koma koma, int holdLen, boolean firstSecond, int i) {
-		if(koma != null) {
-			return false;
-		}
-		//歩以外ならtrue
-		if(holdLen != 4) {
-			return true;
-		}
-		//先手の一番上のマスには歩は置けない
-		if(firstSecond) {
-			if(i == 0) {
-				return false;
-			}
-		}
-		//後手の一番下のマスには歩は置けない
-		if(!firstSecond) {
-			if(i == 4) {
-				return false;
-			}
-		}
-		return true;
-	}
-
-	
-	private int IDtoLength(int id) {
+	public int IDtoLength(int id) {
 		switch(id) {
 		case 2:
 			return 0;
@@ -142,23 +69,40 @@ public class HoldingInformation5_5 {
 			return 4;
 		}
 		//エラー
-		System.out.println("持ち駒エラー");
+		System.out.println("持ち駒エラーidtolen");
+		return -9999999;
+	}
+	public int LengthtoID(int holdLen) {
+		switch(holdLen) {
+		case 0:
+			return 2;
+		case 1:
+			return 3;
+		case 2:
+			return 4;
+		case 3:
+			return 5;
+		case 4:
+			return 8;
+		}
+		//エラー
+		System.out.println("持ち駒エラーlentoid");
 		return -9999999;
 	}
 
-	private int getHoldPointY(int holdCnt, boolean firstSecond) {
+	protected int getHoldPointY(int holdCnt, boolean firstSecond) {
 		if(firstSecond) {
 			int pointCntY = holdCnt / 2;
-		    return 86 * pointCntY + 280;
+		    return 105 * pointCntY + 280;
 		}else {
 			int pointCntY = holdCnt / 2;
-		    return 86 * pointCntY + 30;
+		    return 105 * pointCntY + 20;
 		}
 		
 	}
-	private int getHoldPointX(int holdCnt, boolean firstSecond) {
+	protected int getHoldPointX(int holdCnt, boolean firstSecond) {
 		if(firstSecond) {
-			return 70 * (holdCnt % 2) + 650;
+			return 70 * (holdCnt % 2) + 630;
 		}else {
 			return 70 * (holdCnt % 2);
 		}

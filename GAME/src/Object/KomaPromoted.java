@@ -2,13 +2,19 @@ package Object;
 
 import javax.swing.ImageIcon;
 
+import Management.KomaInformation;
+
 abstract public class KomaPromoted extends Koma {
 	protected boolean isPromoted = false;
 	protected String fileNamePromoted;
 	protected String fileNamePromotedSecond;
 	protected int[] movePromoted;
 	protected int[] movePromotedSecond;
-	
+
+	public KomaPromoted(KomaInformation komaInfor) {
+		super(komaInfor);
+	}
+
 	public boolean getIsPromoted() {return isPromoted;}
 	
 	//駒の動きを初期化

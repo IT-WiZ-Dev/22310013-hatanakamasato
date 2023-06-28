@@ -1,20 +1,23 @@
 package Object;
 
-import java.awt.event.MouseAdapter;
+import Management.KomaInformation;
 
 public class King extends Koma {
-	public King(int _y, int _x, MouseAdapter mouseAdapter, boolean _firstSecond){
+	int[] kingMove = {-1,-1,-1,0,-1,1,0,-1,0,1,1,-1,1,0,1,1};
+	public King(int _y, int _x, KomaInformation komaInfor){
+		super(komaInfor);
 		id = 1;
 		y = _y;
 		x = _x;
-		firstSecond = _firstSecond;
+		firstSecond = komaInfor.getFirstSecond();
+		fileNameCollection = komaInfor.getFileNameCollection();
 		fileName = fileNameCollection.getKing();
 		fileNameSecond = fileNameCollection.getKingSecond();
-		initializeMove("-1-1-100-10100-1000101-101000101",
-				       "-1-1-100-10100-1000101-101000101");
+		move = kingMove;
+		moveSecond = kingMove;
 		//現在の動きと駒の画像を設定する
 		setNowParameter();
-		createKomaB(mouseAdapter);
+		createKomaB(komaInfor.getMouseAdapter());
 
 	}
 }

@@ -1,28 +1,40 @@
 package Object;
 
-import java.awt.event.MouseAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import Management.KomaInformation;
+
 public class Kaku extends KomaPromoted{
-	public Kaku(int _y, int _x,  MouseAdapter mouseAdapter, boolean _firstSecond){
+	int[] kakuMove = {-1,1,-2,2,-3,3,-4,4,-5,5,-6,6,-7,7,-8,8,
+			          1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,
+			          1,-1,2,-2,3,-3,4,-4,5,-5,6,-6,7,-7,8,-8,
+			          -1,-1,-2,-2,-3,-3,-4,-4,-5,-5,-6,-6,-7,-7,-8,-8};
+	int[] umaMove =  {-1,1,-2,2,-3,3,-4,4,-5,5,-6,6,-7,7,-8,8,
+	                  1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,8,
+	                  1,-1,2,-2,3,-3,4,-4,5,-5,6,-6,7,-7,8,-8,
+	                 -1,-1,-2,-2,-3,-3,-4,-4,-5,-5,-6,-6,-7,-7,-8,-8,
+	                 -1,0,0,1,1,0,0,-1};
+
+	public Kaku(int _y, int _x, KomaInformation komaInfor){
+		super(komaInfor);
 		id = 3;
 		y = _y;
 		x = _x;
-		firstSecond = _firstSecond;
+		firstSecond = komaInfor.getFirstSecond();
+		fileNameCollection = komaInfor.getFileNameCollection();
 		fileName = fileNameCollection.getKaku();
 		fileNameSecond = fileNameCollection.getKakuSecond();
 		fileNamePromoted = fileNameCollection.getKakuPromoted();
 		fileNamePromotedSecond = fileNameCollection.getKakuPromotedSecond();
-		           
-		initializeMove("-101-202-303-404010102020303040401-102-203-304-4-1-1-2-2-3-3-4-4",//先手の表の動き
-			           "-101-202-303-404010102020303040401-102-203-304-4-1-1-2-2-3-3-4-4",//後手の表の動き
-			           "-101-202-303-404010102020303040401-102-203-304-4-1-1-2-2-3-3-4-4-1000001010000-1",//先手の裏の動き
-			           "-101-202-303-404010102020303040401-102-203-304-4-1-1-2-2-3-3-4-4-1000001010000-1");//後手の裏の動き
-
+		move = kakuMove;
+		moveSecond = kakuMove;
+		movePromoted = umaMove;
+		movePromotedSecond = umaMove;
+		
 		//現在の動きと駒の画像を設定する
 		setNowParameter();
-		createKomaB(mouseAdapter);
+		createKomaB(komaInfor.getMouseAdapter());
 	}
 	
 	public List<Integer> showGotoBtn(Koma[][] field) {
@@ -37,15 +49,15 @@ public class Kaku extends KomaPromoted{
 				list.add(gotoX);
 			}
 			if(isGotoNum == 1 || isGotoNum == 2) {
-			    if(i < 32) {
-				    if(i > 23) {
-						i = 30;
-				     }else if(i > 15) {
-					   	i = 22;
-				    }else if(i > 7) {
-			     		i = 14;
+			    if(i < 64) {
+				    if(i > 47) {
+						i = 62;
+				     }else if(i > 31) {
+					   	i = 46;
+				    }else if(i > 15) {
+			     		i = 30;
 			      	}else {
-			    		i = 6;
+			    		i = 14;
 			      	}
 				}
 			}
@@ -54,9 +66,9 @@ public class Kaku extends KomaPromoted{
 	}
 
 	public int isNumGotoExist(Koma[][] field, int gotoY, int gotoX) {
-		//範囲外
-		if(gotoY < 0 || gotoY > 4 || gotoX < 0 || gotoX > 4) {
-			return -1;
+		//範囲外なら次の直線に遷移
+		if(gotoY < 0 || gotoY > maxMasu - 1 || gotoX < 0 || gotoX > maxMasu - 1) {
+			return 2;
 		}
 		//座標を追加
 		if(field[gotoY][gotoX] == null) {
@@ -73,5 +85,6 @@ public class Kaku extends KomaPromoted{
 		//エラー
 		return 999;
 	}
+	
 
 }

@@ -7,12 +7,18 @@ import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
+import Datacollection.BaseFileNameCollection;
+import Datacollection.BaseParameterCollection;
+import Management.KomaInformation;
+
 abstract public class Koma {
-	protected FileNameCollection fileNameCollection = new FileNameCollection();
+	protected BaseFileNameCollection fileNameCollection;
+	protected BaseParameterCollection parameterCollection;
 	protected int id;
 	protected JButton b;
 	protected int y;
 	protected int x;
+	protected int maxMasu;
 	protected boolean firstSecond;
 	protected String nowFileName;
 	protected String fileName;
@@ -20,6 +26,12 @@ abstract public class Koma {
 	protected int[] nowMove;
 	protected int[] move;
 	protected int[] moveSecond;
+	
+	public Koma(KomaInformation komaInfor) {
+		fileNameCollection = komaInfor.getFileNameCollection();
+		parameterCollection = komaInfor.getPointCollection();
+		maxMasu = parameterCollection.getMaxMasu();
+	}
 	public int getId() {return id;}
 	public JButton getButton(){return b;}
 	public int getY() {return y;}
@@ -46,26 +58,12 @@ abstract public class Koma {
 			nowFileName = fileNameSecond;
 			nowMove = moveSecond;
 		}
-	}
-	//駒の動きを初期化
-	public void initializeMove(String moveStg, String moveSecondStg){
-		int moveNum = moveStg.length();
-		move = new int[moveNum / 2];
-		for(int i = 0, cnt = 0; i < moveNum; i += 2, cnt++) {
-			move[cnt] = Integer.parseInt(moveStg.substring(i, i + 2));
-		}
-		int moveSecondNum = moveSecondStg.length();
-		moveSecond = new int[moveSecondNum / 2];
-		for(int i = 0, cnt = 0; i < moveSecondNum; i += 2, cnt++) {
-			moveSecond[cnt] = Integer.parseInt(moveSecondStg.substring(i, i + 2));
-		}
 	}	
-	
-
 	
 	public void createKomaB(MouseAdapter mouseAdapter) {
 		b = new JButton();
-		b.setBounds(getPointX(x), getPointY(y),100,100);// 65, 77);
+		b.setBounds(getPointX(x), getPointY(y), 
+				parameterCollection.getButtonHeight(), parameterCollection.getButtonHeight());
 		ImageIcon imageIcon = new ImageIcon(nowFileName);
 		b.setIcon(imageIcon);
 		
@@ -86,7 +84,7 @@ abstract public class Koma {
 			int gotoY = nowMove[i] + y;
 			int gotoX = nowMove[i + 1] + x;
 			//盤の範囲内か
-			if(gotoY >= 0 && gotoY <= 4 && gotoX >= 0 && gotoX <= 4) {
+			if(gotoY >= 0 && gotoY <= maxMasu - 1 && gotoX >= 0 && gotoX <= maxMasu - 1) {
 				//移動先に駒がないか
 				if(isGotoExist(field, gotoY ,gotoX)) {
 					list.add(gotoY);
@@ -108,13 +106,12 @@ abstract public class Koma {
 		return false;
 	}
 	
-	private int getPointY(int y) {
-		return 86 * y + 70;
+	protected int getPointY(int y) {
+		return parameterCollection.getCntPointY() * y + parameterCollection.getSegmentPointY();
 	}
-	private int getPointX(int x) {
-		return 70 * x + 210;
+	protected int getPointX(int x) {
+		return parameterCollection.getCntPointX() * x + parameterCollection.getSegmentPointX();
 	}
-	
 	
 	
 	

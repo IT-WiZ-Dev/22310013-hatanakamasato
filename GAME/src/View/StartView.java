@@ -1,19 +1,24 @@
 package View;
 
+import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
+
+import Controller.StartViewCont;
+import Design.RoundedButton;
+
 
 public class StartView extends JFrame {
 
 	private JPanel contentPane;
-	StartView frame;
+	private StartViewCont cont = new StartViewCont();
 	/**
 	 * Launch the application.
 	 */
@@ -34,24 +39,60 @@ public class StartView extends JFrame {
 	 * Create the frame.
 	 */
 	public StartView() {
+		setTitle("将棋アプリ");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 500);
+		setBounds(300, 0, 541, 635);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(247, 190, 72));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JButton btnNewButton = new JButton("5×5将棋");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				PlayView5_5 form5_5 = new PlayView5_5();
-				form5_5.show();
-			}
-		});
-		btnNewButton.setFont(new Font("MS UI Gothic", Font.PLAIN, 20));
-		btnNewButton.setBounds(129, 88, 156, 50);
-		contentPane.add(btnNewButton);
+		JPanel panel = new JPanel();
+		panel.setForeground(new Color(255, 0, 0));
+		panel.setToolTipText("");
+		panel.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(128, 64, 0), new Color(128, 64, 0), new Color(128, 64, 0), new Color(128, 64, 0)));
+		panel.setBounds(10, 119, 507, 442);
+		contentPane.add(panel);
+		panel.setLayout(null);
+		
+		RoundedButton btn5_5 = new RoundedButton("5×5将棋", 20);
+		btn5_5.setText("  5×5将棋");
+		btn5_5.setVerticalAlignment(SwingConstants.TOP);
+		btn5_5.setBounds(79, 36, 156, 50);
+		btn5_5.setForeground(new Color(255, 255, 255));
+		btn5_5.setBackground(new Color(100, 100, 100));
+		btn5_5.setBorderPainted(false);
+		btn5_5.addMouseListener(cont.OnBtnShowPlayView5_5());
+		btn5_5.addMouseListener(cont.HoverBtn());
+		panel.add(btn5_5);
+		btn5_5.setFont(new Font("MS UI Gothic", Font.PLAIN, 25));
+		
+		RoundedButton btn9_9 = new RoundedButton("9×9将棋", 20);
+		btn9_9.setText("  9×9将棋");
+		btn9_9.setVerticalAlignment(SwingConstants.TOP);
+		btn9_9.setBounds(79, 136, 156, 50);
+		btn9_9.setForeground(new Color(255, 255, 255));
+		btn9_9.setBackground(new Color(100, 100, 100));
+		btn9_9.setBorderPainted(false);
+		btn9_9.addMouseListener(cont.OnBtnShowPlayView9_9());
+		btn9_9.addMouseListener(cont.HoverBtn());
+		panel.add(btn9_9);
+		btn9_9.setFont(new Font("MS UI Gothic", Font.PLAIN, 25));
+		
+		JLabel lblNewLabel_1 = new JLabel("将棋アプリ");
+		lblNewLabel_1.setFont(new Font("MS UI Gothic", Font.PLAIN, 40));
+		lblNewLabel_1.setBounds(172, 31, 172, 41);
+		contentPane.add(lblNewLabel_1);
 	}
-
 }
+
+
+
+
+
+
+
+
+
